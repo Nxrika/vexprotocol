@@ -7,6 +7,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
+        /* ALL YOUR EXISTING CSS STAYS EXACTLY THE SAME */
         :root {
             --bg-primary: #0a0b0f;
             --bg-secondary: #111318;
@@ -990,7 +991,7 @@
                 <button class="close-btn">&times;</button>
             </div>
             <div class="litepaper-content">
-                <!-- Litepaper content remains the same as before -->
+                <!-- COMPLETE LITEPAPER CONTENT -->
                 <div class="litepaper-section">
                     <h2>1. Introduction: The Volatility Gap in DeFi</h2>
                     <p>Digital asset markets have matured at an incredible pace, but there's still a critical piece missing: a reliable, transparent source for implied volatility data. Traditional finance has long depended on volatility indices like the VIX to price derivatives, assess market stress, and create hedging strategies. DeFi operates without this essential benchmark.</p>
@@ -1003,7 +1004,101 @@
                     <p>The protocol delivers a robust, manipulation-resistant standard that developers can trust when building advanced derivative products, hedging strategies, structured yield systems, or risk management tools. Vex serves as essential infrastructure for the next generation of decentralized derivatives.</p>
                 </div>
 
-                <!-- Additional sections remain the same -->
+                <div class="litepaper-section">
+                    <h2>3. CVX Methodology: How It Works</h2>
+                    <p>The CVX Index adapts Model-Free Implied Volatility (MFIV) principles to the unique crypto-derivatives landscape. Unlike historical variance models or proprietary calculations, CVX captures market expectations by integrating observed option prices across a continuous strike range.</p>
+                    <p>This approach extracts implied variance from a complete set of out-of-the-money options, creating an index that reflects true implied volatility as determined by the market itself—not by any single protocol or pricing assumption.</p>
+                </div>
+
+                <div class="litepaper-section">
+                    <h2>4. MFIV Calculation Process</h2>
+                    <p>CVX computation follows a systematic, transparent process:</p>
+                    <ol>
+                        <li>Collect live quotes from major option markets</li>
+                        <li>Filter and cleanse data to remove stale or illiquid values</li>
+                        <li>Construct interpolated volatility surfaces for BTC and ETH</li>
+                        <li>Integrate implied variance across strikes using modified MFIV</li>
+                        <li>Adjust results using perpetual futures basis and funding rates</li>
+                        <li>Aggregate, validate, and publish the index on-chain</li>
+                    </ol>
+                    <p>These steps ensure CVX remains accurate, resilient, and resistant to manipulation attempts.</p>
+                </div>
+
+                <div class="litepaper-section">
+                    <h2>5. Data Sources & Market Inputs</h2>
+                    <p>CVX reliability depends on high-quality, liquid market data from carefully selected sources:</p>
+                    <ul>
+                        <li>Deribit BTC & ETH Options</li>
+                        <li>Lyra On-Chain Options</li>
+                        <li>Perpetual Futures Funding Rates from major venues</li>
+                        <li>Perpetual Futures Basis data for BTC and ETH</li>
+                    </ul>
+                    <p>These sources were chosen for consistency, liquidity, and long-term market relevance. Additional venues will be integrated as decentralized options markets mature.</p>
+                </div>
+
+                <div class="litepaper-section">
+                    <h2>6. Update Frequency & Data Delivery</h2>
+                    <p>The CVX Index updates every 60 seconds, balancing real-time responsiveness with gas efficiency. Off-chain data services continuously process incoming quotes and produce signed variance calculations.</p>
+                    <p>Vex validators verify payloads and push updated CVX readings on-chain. This architecture ensures DeFi protocols can rely on CVX as a stable, highly available volatility reference feed suitable for pricing, hedging, and risk modeling.</p>
+                </div>
+
+                <div class="litepaper-section">
+                    <h2>7. On-Chain Security & Verification</h2>
+                    <p>To maintain data integrity, Vex implements multiple security layers:</p>
+                    <ul>
+                        <li>Validator quorum submitting signed CVX values</li>
+                        <li>Median aggregation to prevent outlier manipulation</li>
+                        <li>Timestamp and signature verification in smart contracts</li>
+                        <li>Immutable storage of all historical index readings</li>
+                    </ul>
+                    <p>This system ensures transparency and prevents any single actor from meaningfully influencing the index.</p>
+                </div>
+
+                <div class="litepaper-section">
+                    <h2>8. VEX Token Utility</h2>
+                    <p>The VEX token (not yet deployed) will secure and govern the protocol with several key functions:</p>
+                    <ul>
+                        <li><strong>Staking:</strong> Validators must stake VEX to participate, creating economic guarantees for honest behavior</li>
+                        <li><strong>Governance:</strong> Token holders vote on model parameters, validator onboarding, and system upgrades</li>
+                        <li><strong>Fee Distribution:</strong> Protocols using CVX pay fees distributed to stakers</li>
+                        <li><strong>Ecosystem Incentives:</strong> Early validators, builders, and integrators receive token rewards</li>
+                        <li><strong>Treasury Development:</strong> Portion of supply dedicated to maintenance, audits, and grants</li>
+                    </ul>
+                    <p>Final supply structure and distribution will be published before token deployment.</p>
+                </div>
+
+                <div class="litepaper-section">
+                    <h2>9. Development Roadmap</h2>
+                    <div class="phase-list">
+                        <div class="phase-item">
+                            <h4>Phase 1: CVX Initialization</h4>
+                            <p>BTC and ETH volatility indices live on Arbitrum • Validator network activation • Data crawlers and aggregation logic deployment</p>
+                        </div>
+                        <div class="phase-item">
+                            <h4>Phase 2: Multi-Asset Expansion</h4>
+                            <p>Addition of SOL, AVAX, and BNB volatility indices • Deeper integration with decentralized option platforms</p>
+                        </div>
+                        <div class="phase-item">
+                            <h4>Phase 3: Analytical Tooling</h4>
+                            <p>Realized volatility feeds • Variance risk premium indicators • Volatility term structure tools</p>
+                        </div>
+                        <div class="phase-item">
+                            <h4>Phase 4: Cross-Chain Deployment</h4>
+                            <p>Expansion to Base, Optimism, and zkSync • Cross-chain CVX standardization</p>
+                        </div>
+                        <div class="phase-item">
+                            <h4>Phase 5: CVX Version 2</h4>
+                            <p>Full MFIV implementation with advanced smoothing • Volatility swap primitives • Automated hedging modules</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="litepaper-section">
+                    <h2>10. Team & Contributors</h2>
+                    <p>Vex is developed by a decentralized collective with backgrounds in quantitative finance, derivatives engineering, risk modeling, smart contract development, and trading infrastructure.</p>
+                    <p>The founding contributors operate pseudonymously but bring institutional trading, DeFi infrastructure, and protocol architecture experience. Community involvement is central to ongoing development, with validators and researchers contributing to model refinement.</p>
+                </div>
+
                 <button id="downloadPdf" class="download-btn">
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                         <path d="M14 10v4a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-4M8 11V1m0 10L5 8m3 3l3-3"/>
@@ -1014,9 +1109,130 @@
         </div>
     </div>
 
-    <!-- Hidden PDF Template -->
+    <!-- Hidden PDF Template - NOW WITH CONTENT -->
     <div id="pdf-template">
-        <!-- PDF content remains the same as before -->
+        <div class="pdf-header">
+            <h1>Vex Protocol Litepaper</h1>
+            <div class="subtitle">A Comprehensive Overview of the CVX Volatility Index</div>
+            <div class="subtitle">Version 1.0 | December 2024</div>
+        </div>
+
+        <div class="pdf-section">
+            <h2>1. Introduction: The Volatility Gap in DeFi</h2>
+            <p>Digital asset markets have matured at an incredible pace, but there's still a critical piece missing: a reliable, transparent source for implied volatility data. Traditional finance has long depended on volatility indices like the VIX to price derivatives, assess market stress, and create hedging strategies. DeFi operates without this essential benchmark.</p>
+            <p>While existing price oracles show where the market stands today, they don't capture forward-looking volatility expectations. This leaves builders without the foundational metric needed for mature derivatives markets. Vex solves this by delivering a complete on-chain volatility standard purpose-built for decentralized finance.</p>
+        </div>
+
+        <div class="pdf-section">
+            <h2>2. The Vex Protocol: System Architecture</h2>
+            <p>Vex introduces a decentralized volatility oracle that calculates and publishes the CVX Index directly on-chain. By aggregating data from major liquidity sources across options and perpetual futures markets, Vex constructs a market-driven measure of implied volatility that reflects true market expectations.</p>
+            <p>The protocol delivers a robust, manipulation-resistant standard that developers can trust when building advanced derivative products, hedging strategies, structured yield systems, or risk management tools. Vex serves as essential infrastructure for the next generation of decentralized derivatives.</p>
+        </div>
+
+        <div class="pdf-section">
+            <h2>3. CVX Methodology: How It Works</h2>
+            <p>The CVX Index adapts Model-Free Implied Volatility (MFIV) principles to the unique crypto-derivatives landscape. Unlike historical variance models or proprietary calculations, CVX captures market expectations by integrating observed option prices across a continuous strike range.</p>
+            <p>This approach extracts implied variance from a complete set of out-of-the-money options, creating an index that reflects true implied volatility as determined by the market itself—not by any single protocol or pricing assumption.</p>
+        </div>
+
+        <div class="pdf-section">
+            <h2>4. MFIV Calculation Process</h2>
+            <p>CVX computation follows a systematic, transparent process:</p>
+            <ol>
+                <li>Collect live quotes from major option markets</li>
+                <li>Filter and cleanse data to remove stale or illiquid values</li>
+                <li>Construct interpolated volatility surfaces for BTC and ETH</li>
+                <li>Integrate implied variance across strikes using modified MFIV</li>
+                <li>Adjust results using perpetual futures basis and funding rates</li>
+                <li>Aggregate, validate, and publish the index on-chain</li>
+            </ol>
+            <p>These steps ensure CVX remains accurate, resilient, and resistant to manipulation attempts.</p>
+        </div>
+
+        <div class="pdf-section">
+            <h2>5. Data Sources & Market Inputs</h2>
+            <p>CVX reliability depends on high-quality, liquid market data from carefully selected sources:</p>
+            <ul>
+                <li>Deribit BTC & ETH Options</li>
+                <li>Lyra On-Chain Options</li>
+                <li>Perpetual Futures Funding Rates from major venues</li>
+                <li>Perpetual Futures Basis data for BTC and ETH</li>
+            </ul>
+            <p>These sources were chosen for consistency, liquidity, and long-term market relevance. Additional venues will be integrated as decentralized options markets mature.</p>
+        </div>
+
+        <div class="pdf-section">
+            <h2>6. Update Frequency & Data Delivery</h2>
+            <p>The CVX Index updates every 60 seconds, balancing real-time responsiveness with gas efficiency. Off-chain data services continuously process incoming quotes and produce signed variance calculations.</p>
+            <p>Vex validators verify payloads and push updated CVX readings on-chain. This architecture ensures DeFi protocols can rely on CVX as a stable, highly available volatility reference feed suitable for pricing, hedging, and risk modeling.</p>
+        </div>
+
+        <div class="pdf-section">
+            <h2>7. On-Chain Security & Verification</h2>
+            <p>To maintain data integrity, Vex implements multiple security layers:</p>
+            <ul>
+                <li>Validator quorum submitting signed CVX values</li>
+                <li>Median aggregation to prevent outlier manipulation</li>
+                <li>Timestamp and signature verification in smart contracts</li>
+                <li>Immutable storage of all historical index readings</li>
+            </ul>
+            <p>This system ensures transparency and prevents any single actor from meaningfully influencing the index.</p>
+        </div>
+
+        <div class="pdf-section">
+            <h2>8. VEX Token Utility</h2>
+            <p>The VEX token (not yet deployed) will secure and govern the protocol with several key functions:</p>
+            <ul>
+                <li><strong>Staking:</strong> Validators must stake VEX to participate, creating economic guarantees for honest behavior</li>
+                <li><strong>Governance:</strong> Token holders vote on model parameters, validator onboarding, and system upgrades</li>
+                <li><strong>Fee Distribution:</strong> Protocols using CVX pay fees distributed to stakers</li>
+                <li><strong>Ecosystem Incentives:</strong> Early validators, builders, and integrators receive token rewards</li>
+                <li><strong>Treasury Development:</strong> Portion of supply dedicated to maintenance, audits, and grants</li>
+            </ul>
+            <p>Final supply structure and distribution will be published before token deployment.</p>
+        </div>
+
+        <div class="pdf-section">
+            <h2>9. Development Roadmap</h2>
+            
+            <div class="pdf-phase">
+                <h4>Phase 1: CVX Initialization</h4>
+                <p>BTC and ETH volatility indices live on Arbitrum • Validator network activation • Data crawlers and aggregation logic deployment</p>
+            </div>
+            
+            <div class="pdf-phase">
+                <h4>Phase 2: Multi-Asset Expansion</h4>
+                <p>Addition of SOL, AVAX, and BNB volatility indices • Deeper integration with decentralized option platforms</p>
+            </div>
+            
+            <div class="pdf-phase">
+                <h4>Phase 3: Analytical Tooling</h4>
+                <p>Realized volatility feeds • Variance risk premium indicators • Volatility term structure tools</p>
+            </div>
+            
+            <div class="pdf-phase">
+                <h4>Phase 4: Cross-Chain Deployment</h4>
+                <p>Expansion to Base, Optimism, and zkSync • Cross-chain CVX standardization</p>
+            </div>
+            
+            <div class="pdf-phase">
+                <h4>Phase 5: CVX Version 2</h4>
+                <p>Full MFIV implementation with advanced smoothing • Volatility swap primitives • Automated hedging modules</p>
+            </div>
+        </div>
+
+        <div class="pdf-section">
+            <h2>10. Team & Contributors</h2>
+            <p>Vex is developed by a decentralized collective with backgrounds in quantitative finance, derivatives engineering, risk modeling, smart contract development, and trading infrastructure.</p>
+            <p>The founding contributors operate pseudonymously but bring institutional trading, DeFi infrastructure, and protocol architecture experience. Community involvement is central to ongoing development, with validators and researchers contributing to model refinement.</p>
+        </div>
+
+        <div class="pdf-section">
+            <p style="text-align: center; margin-top: 40px; font-style: italic; color: #666;">
+                © 2024 Vex Protocol. All rights reserved.<br>
+                This document is for informational purposes only and does not constitute financial advice.
+            </p>
+        </div>
     </div>
 
     <script>
@@ -1093,7 +1309,8 @@
                 useCORS: true,
                 logging: false,
                 width: pdfContent.scrollWidth,
-                height: pdfContent.scrollHeight
+                height: pdfContent.scrollHeight,
+                backgroundColor: '#ffffff'
             }).then(canvas => {
                 const imgData = canvas.toDataURL('image/png');
                 const imgWidth = 210; // A4 width in mm
