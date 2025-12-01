@@ -290,6 +290,7 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            transition: all 0.3s ease;
         }
 
         .cvx-value .label {
@@ -767,6 +768,41 @@
             font-size: 0.875rem;
         }
 
+        /* Live Update Animation */
+        .cvx-value .value.updating {
+            animation: pulse 0.5s ease-in-out;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* Refresh Controls */
+        .refresh-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .refresh-btn {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.875rem;
+        }
+
+        .refresh-btn:hover, .refresh-btn.active {
+            background: var(--accent-primary);
+            color: white;
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .hero {
@@ -873,6 +909,11 @@
                     <span class="arrow" id="cvxArrow">--</span>
                     <span class="change" id="cvxChangeAmount">--.--</span>
                 </div>
+            </div>
+            <div class="refresh-controls">
+                <button class="refresh-btn active" data-interval="500">500ms</button>
+                <button class="refresh-btn" data-interval="5000">5s</button>
+                <button class="refresh-btn" data-interval="30000">30s</button>
             </div>
             <div class="last-updated" id="lastUpdated">
                 Last updated: --
@@ -1261,13 +1302,60 @@
     </div>
 
     <script>
-        // REAL MARKET DATA INTEGRATION
+        // CVX LIVE UPDATE FUNCTIONALITY
         let lastCVXValue = null;
+        let updateInterval = 500; // Default to 500ms
+        let updateIntervalId = null;
+        
+        // Initialize CVX updates
+        function initializeCVXUpdates() {
+            // Start with default interval
+            startCVXUpdates(updateInterval);
+            
+            // Set up refresh controls
+            setupRefreshControls();
+        }
+        
+        // Set up refresh interval controls
+        function setupRefreshControls() {
+            const refreshButtons = document.querySelectorAll('.refresh-btn');
+            
+            refreshButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    refreshButtons.forEach(btn => btn.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    // Get new interval from data attribute
+                    const newInterval = parseInt(this.getAttribute('data-interval'));
+                    
+                    // Restart updates with new interval
+                    startCVXUpdates(newInterval);
+                });
+            });
+        }
+        
+        // Start CVX updates with specified interval
+        function startCVXUpdates(interval) {
+            // Clear existing interval
+            if (updateIntervalId) {
+                clearInterval(updateIntervalId);
+            }
+            
+            // Set new interval
+            updateInterval = interval;
+            updateIntervalId = setInterval(fetchRealCVXData, interval);
+            
+            // Trigger immediate update
+            fetchRealCVXData();
+        }
         
         async function fetchRealCVXData() {
             try {
-                // Show loading state
-                document.getElementById('cvxValue').classList.add('loading');
+                // Show updating animation
+                document.getElementById('cvxValue').classList.add('updating');
                 
                 // 1. Get real Deribit volatility index (BTC VIX equivalent)
                 const deribitResponse = await fetch('https://www.deribit.com/api/v2/public/get_volatility_index?currency=BTC');
@@ -1281,7 +1369,6 @@
                 const fundingRate = parseFloat(btcData.lastFundingRate) * 100; // Convert to percentage
                 
                 // 3. Calculate CVX using real market data
-                // This is a simplified version - you can replace with your exact MFIV formula
                 const cvxValue = calculateRealCVX(bvix, fundingRate);
                 
                 // 4. Calculate change from previous value
@@ -1291,8 +1378,10 @@
                 // 5. Update display
                 updateCVXDisplay(cvxValue, change);
                 
-                // Remove loading state
-                document.getElementById('cvxValue').classList.remove('loading');
+                // Remove updating animation
+                setTimeout(() => {
+                    document.getElementById('cvxValue').classList.remove('updating');
+                }, 500);
                 
             } catch (error) {
                 console.error('Failed to fetch real market data:', error);
@@ -1328,11 +1417,7 @@
             const lastUpdatedElement = document.getElementById('lastUpdated');
             
             // Update value with animation
-            valueElement.style.transform = 'scale(1.1)';
-            setTimeout(() => {
-                valueElement.textContent = value.toFixed(2);
-                valueElement.style.transform = 'scale(1)';
-            }, 150);
+            valueElement.textContent = value.toFixed(2);
             
             // Update change indicator
             const isPositive = change >= 0;
@@ -1351,11 +1436,8 @@
             updateCVXDisplay(realisticValue, change);
         }
         
-        // Update CVX data every 30 seconds
-        setInterval(fetchRealCVXData, 30000);
-        
-        // Initial load
-        fetchRealCVXData();
+        // Initialize CVX updates when page loads
+        document.addEventListener('DOMContentLoaded', initializeCVXUpdates);
 
         // Modal functionality
         const modal = document.getElementById('litepaperModal');
